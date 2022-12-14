@@ -16,6 +16,10 @@ $ go run main.go -u http://vulnerable-server.com/xxe-endpoint
 
 The program will send an XML payload containing an XXE injection to the specified URL using an HTTP POST request. If the server is vulnerable to XXE injection, the response from the server may include sensitive information.
 
+## Payloads
+
+Check `Payloads.md` file for examples and to understand different XXE payloads. 
+
 ## Warning
 
 Please use this tool responsibly and only on systems that you have permission to test. Do not use this tool to perform unauthorized attacks on systems that you do not own or have permission to test.
