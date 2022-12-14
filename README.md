@@ -11,7 +11,7 @@ This is a simple Go program that can be used to test for XML External Entity (XX
 To use `XAT`, you need to specify the URL of the vulnerable server as a command line argument using the `-u` flag.
 
 ```
-    $ go run main.go -u http://vulnerable-server.com/xxe-endpoint
+$ go run main.go -u http://vulnerable-server.com/xxe-endpoint
 ```
 
 The program will send an XML payload containing an XXE injection to the specified URL using an HTTP POST request. If the server is vulnerable to XXE injection, the response from the server may include sensitive information.
