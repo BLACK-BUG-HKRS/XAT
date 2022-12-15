@@ -40,6 +40,12 @@ func main() {
 		return
 	}
 
+	// Check the response status code
+	if resp.StatusCode != http.StatusOK {
+		fmt.Printf("Error sending payload: HTTP %d\n", resp.StatusCode)
+		return
+	}
+
 	// Read the response from the server
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
