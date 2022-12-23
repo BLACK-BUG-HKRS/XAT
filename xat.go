@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+const version = "1.0.3"
+
 func main() {
 
 	// Define the URL of the vulnerable server
@@ -22,6 +24,9 @@ func main() {
 	
 	// Define the verbose flag
 	verbose := flag.Bool("verbose", false, "Print debugging information")
+	
+	// Define the version flag
+	version := flag.Bool("version", false, "Print the version number of the tool")
 
 	// Parse the command line flags
 	flag.Parse()
@@ -48,6 +53,11 @@ func main() {
 	
 	if *verbose {
 		fmt.Println("Sending payload to", *url)
+	}
+	
+	if *version {
+		fmt.Println("Version:", version)
+		return
 	}
 
 	// Send the payload to the server using an HTTP POST request
