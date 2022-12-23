@@ -15,7 +15,7 @@ Other flags usage:
 | Flag | Function |
 |:----:| -------- |
 | `-t` | specifies the timeout for the HTTP request. | 
-| `-p` | speifies the location of XML payload you want to inject, you can use `payloads.xml` file as an example. |
+| `-p` | speifies the location of XML payload you want to inject, you can use `payloads.xml` file. |
 | `-verbose` | print additional debugging information when running the tool. |
 
 Example:
