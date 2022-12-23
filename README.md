@@ -21,7 +21,7 @@ Other flags usage:
 Example:
 
 ```
-$ go run xat.go -u http://vulnerable-server.com/xxe-endpoint -t 60 -p /path/to/payloadFile.txt
+$ go run xat.go -u http://vulnerable-server.com/xxe-endpoint -t 60 -p /path/to/payloadFile.xml
 ```
 
 The program will send an XML payload containing an XXE injection to the specified URL using an HTTP POST request. If the server is vulnerable to XXE injection, the response from the server may include sensitive information.
