@@ -19,6 +19,9 @@ func main() {
 	
 	// Define the payload flag
         payloadFile := flag.String("p", "", "The file containing the XML payload")
+	
+	// Define the verbose flag
+	verbose := flag.Bool("verbose", false, "Print debugging information")
 
 	// Parse the command line flags
 	flag.Parse()
@@ -42,12 +45,20 @@ func main() {
 	client := &http.Client{
 		Timeout: time.Duration(*timeout) * time.Second,
 	}
+	
+	if *verbose {
+		fmt.Println("Sending payload to", *url)
+	}
 
 	// Send the payload to the server using an HTTP POST request
 	resp, err := client.Post(*url, "application/xml", bytes.NewBuffer([]byte(payload)))
 	if err != nil {
 		fmt.Println("Error sending payload:", err)
 		return
+	}
+	
+	if *verbose {
+		fmt.Println("Response received from server")
 	}
 
 	// Check the response status code
