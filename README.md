@@ -8,7 +8,17 @@ This is a simple Go program that can be used to test for XML External Entity (XX
 
 ## Usage 
 
-To use `XAT`, you need to specify the URL of the vulnerable server as a command line argument using the `-u` flag. The `-t` flag specifies the timeout for the HTTP request. The `-p` flag speifies the location of XML payload you want to inject.
+To use `XAT`, you need to specify the URL of the vulnerable server as a command line argument using the `-u` flag.
+
+Other flags usage:
+
+| Flag | Function |
+|:----:| -------- |
+| `-t` | specifies the timeout for the HTTP request. | 
+| `-p` | speifies the location of XML payload you want to inject. |
+| `-verbose` | print additional debugging information when running the tool. |
+
+Example:
 
 ```
 $ go run xat.go -u http://vulnerable-server.com/xxe-endpoint -t 60 -p /path/to/payloadFile.txt
