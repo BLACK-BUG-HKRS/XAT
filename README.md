@@ -18,6 +18,8 @@ Other flags usage:
 | `-p` | speifies the location of XML payload you want to inject, you can use `payloads.xml` file. |
 | `-verbose` | print additional debugging information when running the tool. |
 | `-version` | print the version number of the tool. |
+| `-username` | Username for basic authentication. |
+| `-password` | Password for basic authentication. |
 
 Example:
 
